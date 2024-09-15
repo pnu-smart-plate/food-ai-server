@@ -29,3 +29,15 @@
         - 매개변수: (이미지 파일), (출력 경로)
         - 결과: 윤곽선을 이미지의 끝 사각형에 맞추어 투영한 이미지 파일이 저장된다.
 
+
+## 실행 방법
+1. 기존 main.py 함수를 이용하여 식판 사진을 predict 한다.
+    1. springboot 0.0.0.0:8901 서버를 이용하여 사진 업로드! 
+2. predict 결과 나온 xywh를 복사한다.(콘솔창의 정보를 확인한다.)
+1. edge-detection-perspective-transform.py 파일의 main 함수로 이동
+   1. filename을 전처리를 원하는 이미지로 수정
+   2. predict 결과로 나온 xywh의 값을 edge-detection-perspective-tarnsform의 xywh 리스트 안에 넣어준다.
+   2. blacken_outside_bbox의 경우 margin_ratio를 설정하여 바운딩 박스 안쪽 부분 중 검정색으로 날릴 부분을 결정한다.
+1. edge-detection-perspective-transorm.py의 main 함수를 실행시킨다.
+2. 나오는 이미지마다 스페이스바를 누르면서 중간 결과를 살펴 본다.
+3. 최종 결과인 original_imageresult.jpeg이 output_path에 저장된 것을 확인한다.
