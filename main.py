@@ -7,6 +7,9 @@ import ai
 import io
 from PIL import Image
 import matplotlib.pyplot as plt
+import joblib
+# from sklearn.linear_model import LinearRegression
+import numpy as np
 
 app = FastAPI()
 food_detect_ai = ai.DetectionModel()
@@ -98,9 +101,23 @@ def detection_to_json(food_boxes, tray_boxes):
 
 # 양추정 함수
 def predict_amount(cls, food_bbox_size, tray_bbox_size):
-    print(f"Class: {cls}, Tray bbox size: {tray_bbox_size}, Food bbox size: {food_bbox_size}, Food bbox / tray bbox: {food_bbox_size / tray_bbox_size}")
-    # todo 양추정 모델 완성해서 결과 가져오기
-    return 100
+    food_tray_ratio = food_bbox_size / tray_bbox_size
+    # print(f"Class: {cls}, Tray bbox size: {tray_bbox_size}, Food bbox size: {food_bbox_size}, Food bbox / tray bbox: {food_tray_ratio}")
+    model_dic = {
+        0: "rice_model.pkl"
+    }
+
+    # 양추정 모델이 없는 음식이 들어올 경우 무조건 100 반환
+    if int(cls) not in model_dic.keys():
+        return 100
+
+    loaded_model = joblib.load('./amount_model/' + model_dic[cls])
+
+    def predict_class(value):
+        prediction = loaded_model.predict(np.array([[value]]))
+        return round(prediction[0])  # 예측된 값을 반올림하여 반환
+
+    return predict_class(food_tray_ratio)
 
 
 if __name__ == "__main__":
