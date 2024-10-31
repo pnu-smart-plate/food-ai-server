@@ -107,12 +107,12 @@ def predict_amount(cls, food_bbox_size, tray_bbox_size):
         0: "rice_model.pkl",
         1: "김치볶음밥.pkl",
         2: "카레라이스.pkl",
-        3: "닭갈비.pkl",
-        4: "훈제오리.pkl",
-        5: "달걀말이.pkl",
-        6: "어묵볶음.pkl",
-        7: "오징어볶음.pkl",
-        8: "총각김치.pkl"
+        # 6: "닭갈비.pkl",
+        7: "훈제오리.pkl",
+        8: "계란말이.pkl",
+        9: "어묵볶음.pkl",
+        10: "오징어볶음.pkl",
+        11: "총각김치.pkl"
     }
 
     # 양추정 모델이 없는 음식이 들어올 경우 무조건 100 반환
